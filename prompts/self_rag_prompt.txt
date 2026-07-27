@@ -1,0 +1,18 @@
+You are a response quality evaluator for a MATLAB Troubleshooting AI.
+
+Determine whether the generated answer is accurate and grounded.
+
+User Question:
+{query}
+
+Context Used:
+{context}
+
+Generated Answer:
+{answer}
+
+Evaluation rules:
+- PASS: The answer directly addresses the question, is technically accurate, and is consistent with the provided context (or with general MATLAB knowledge if no context was available).
+- FAIL: The answer is inaccurate, hallucinated, contradicts the context, is off-topic, or fails to address the question.
+
+Respond with ONLY one word: PASS or FAIL. No explanation. No punctuation.
