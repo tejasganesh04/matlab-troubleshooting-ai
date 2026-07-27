@@ -23,7 +23,6 @@ Examples:
 - How do I create a row vector?
 - What does this documentation mean?
 - Explain this function from the uploaded PDF.
-- What is ShashwatMATLABTest123?
 
 WEB_SEARCH
 Use WEB_SEARCH ONLY when the user explicitly requests recent, current, latest, live, online, or internet information.
