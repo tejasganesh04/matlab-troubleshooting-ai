@@ -1,39 +1,70 @@
-# MATLAB Troubleshooting Assistant
+# MATLAB Troubleshooting AI
 
-A production-ready AI-powered assistant designed to debug, analyze, and solve MATLAB and Simulink errors using LangGraph, Gemini 2.5 Flash, Gemini Vision, and FAISS.
+Maintained and customized by **Tejas Ganesh**. An AI assistant for investigating MATLAB errors and Simulink models, with screenshot analysis, local PDF retrieval, and web search.
 
-## Features
-- **Intent Recognition**: Routes queries to General LLM, RAG, Vision, or Web Search.
-- **Multi-modal Vision**: Extracts and analyzes errors or Simulink blocks from screenshots.
-- **Corrective RAG (CRAG)**: Rewrites query and triggers web search if retrieved documentation context is insufficient.
-- **Self-RAG (Self-Reflective Validation)**: Validates response groundedness and completeness.
+[Repository](https://github.com/tejasganesh04/matlab-troubleshooting-ai)
 
-## Project Structure
-The repository is modularized as follows:
-- `app.py`: Streamlit frontend.
-- `agents/`: Custom LLM reasoning wrappers.
-- `graph/`: LangGraph workflow nodes, edges, state, and builder.
-- `rag/`: Loader, splitter, embedding, and FAISS vector indexer.
-- `prompts/`: System/user prompt templates.
-- `config/`: settings and variable loader.
-- `knowledge_base/pdfs/`: Reference documentation PDFs.
-- `faiss_index/`: Compiled FAISS search index storage.
+## What it does
 
-## Setup Instructions
-1. Clone the repository and install requirements:
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. Configure your keys in `.env`:
-   ```
-   GEMINI_API_KEY=your_key
-   ```
-3. Place MATLAB manuals/PDFs into `knowledge_base/pdfs/`.
-4. Index PDF content:
-   ```bash
-   python rag/indexer.py
-   ```
-5. Run the Streamlit web interface:
-   ```bash
-   streamlit run app.py
-   ```
+- Routes questions between general answers, PDF retrieval, screenshot analysis, and web search.
+- Uses Gemini for text and image analysis, FAISS for documentation search, and Tavily for web context.
+- Rewrites unsuccessful retrieval queries and runs a bounded answer validation loop.
+- Displays formatted answers and keeps the latest answer available across Streamlit reruns, with a Markdown download.
+
+## Run locally
+
+Use Python 3.11 or 3.12 in an isolated environment:
+
+```bash
+git clone https://github.com/tejasganesh04/matlab-troubleshooting-ai.git
+cd matlab-troubleshooting-ai
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+```
+
+On Windows, activate with `.venv\Scripts\activate`.
+
+Fill in all four API/model values in `.env`. `GEMINI_API_KEY` is your Google API key; `TAVILY_API_KEY` enables web search. Choose a Gemini generation model and Google embedding model available to your account for `GEMINI_MODEL` and `EMBEDDING_MODEL`. Model availability depends on the provider and your account. `LOG_LEVEL` defaults to `INFO`.
+
+```bash
+streamlit run app.py
+```
+
+Enter a question and optionally attach a PNG or JPEG screenshot. Click **Generate Answer**. The model can make mistakes; check proposed MATLAB commands and model changes before using them.
+
+## Add your own documentation
+
+Place PDFs you are allowed to use in `knowledge_base/pdfs/`, then run this command from the repository root:
+
+```bash
+python -m rag.indexer
+```
+
+Restart Streamlit after rebuilding an index. Rebuild whenever you change the embedding model. Without an index, retrieval returns empty context and the workflow can fall back to web search. Only load FAISS indexes you generated yourself: the local index loader deserializes pickle data.
+
+## Layout
+
+| Path | Purpose |
+| --- | --- |
+| `app.py` | Streamlit interface |
+| `agents/` | Classification, vision, retrieval, search, generation, and grading |
+| `graph/` | LangGraph state, nodes, and bounded retry routing |
+| `rag/` | PDF loading, chunking, embeddings, and FAISS indexing |
+| `prompts/` | Editable agent prompts |
+| `config/settings.py` | Environment configuration |
+| `.env.example` | Required configuration template |
+
+## Troubleshooting
+
+- **Missing environment variable:** populate every required value in `.env` and restart the app.
+- **Empty retrieval:** add PDFs and run `python -m rag.indexer` from the root.
+- **API failures:** check keys, model access, quotas, and network connectivity.
+- **Dependency install failures:** use a fresh Python 3.11 or 3.12 virtual environment.
+
+Questions, images, and retrieved context may be sent to Google; search queries are sent to Tavily. Keep confidential material out of requests unless you have permission to share it. Secrets, uploaded files, PDFs, and generated indexes are excluded from Git.
+
+## Attribution
+
+Based on [shashwat23singh/matlab-troubleshooting-ai](https://github.com/shashwat23singh/matlab-troubleshooting-ai), with original Git history retained. This version adds Tejas Ganesh branding, corrected setup instructions, configuration examples, a PDF retrieval fix, and answer persistence/export. The upstream repository did not include a license at the time of import; this repository does not assert a new license over upstream code.

@@ -3,7 +3,7 @@ import streamlit as st
 def init_page_config():
     """Initialize the Streamlit page configuration."""
     st.set_page_config(
-        page_title="MATLAB Troubleshooting AI",
+        page_title="MATLAB Troubleshooting AI | Tejas Ganesh",
         page_icon="⚙️",
         layout="wide",
         initial_sidebar_state="expanded"
@@ -13,12 +13,14 @@ def render_sidebar():
     """Render the sidebar with project info and reset button."""
     with st.sidebar:
         st.title("⚙️ MATLAB AI")
+        st.caption("Maintained by Tejas Ganesh")
+        st.link_button("View project on GitHub", "https://github.com/tejasganesh04/matlab-troubleshooting-ai")
         st.markdown("---")
         st.markdown("### About Project")
         st.info(
             "This application is a professional MATLAB and Simulink Troubleshooting Assistant. "
             "It leverages advanced AI to analyze your questions and visual diagrams, providing "
-            "accurate, step-by-step solutions."
+            "step-by-step suggestions to help you investigate your issue."
         )
         st.markdown("---")
         if st.button("Reset Application", type="primary", use_container_width=True):
@@ -97,6 +99,14 @@ def main():
             st.session_state.clear()
             st.rerun()
 
+    if not generate_btn and st.session_state.get("last_answer"):
+        st.markdown("### AI Troubleshooting Response")
+        st.markdown(st.session_state["last_answer"])
+
+    if st.session_state.get("last_answer") and not generate_btn:
+        st.download_button("Download answer", st.session_state["last_answer"],
+                           file_name="matlab-troubleshooting.md", mime="text/markdown")
+
     # Process generation
     if generate_btn:
         if not user_question.strip():
@@ -128,7 +138,8 @@ def main():
                     if answer:
                         st.success("Troubleshooting analysis complete.", icon="✅")
                         st.markdown("### AI Troubleshooting Response")
-                        st.markdown(f'<div class="response-container">{answer}</div>', unsafe_allow_html=True)
+                        st.session_state["last_answer"] = answer
+                        st.markdown(answer)
                     else:
                         st.warning("The AI processed the request but returned no answer.", icon="⚠️")
                         

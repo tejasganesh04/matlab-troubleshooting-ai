@@ -12,7 +12,6 @@ from pathlib import Path
 
 from config.settings import get_settings
 from rag.embeddings import get_embeddings_model
-from rag.retriever import retrieve_documents as faiss_retrieve
 from rag.vector_store import load_vector_store
 
 logger: logging.Logger = logging.getLogger(__name__)
@@ -74,7 +73,7 @@ def retrieve_documents(query: str, top_k: int = 5) -> tuple[list[str], str]:
         return [], ""
 
     try:
-        docs = faiss_retrieve(query=query, vector_store=vector_store, top_k=top_k)
+        docs = vector_store.similarity_search(query, k=top_k)
         doc_strings = [doc.page_content for doc in docs]
         context = "\n\n".join(doc_strings)
         logger.info("Retrieved %d document chunks for query.", len(doc_strings))
