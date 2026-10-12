@@ -1,6 +1,6 @@
 # MATLAB Troubleshooting AI
 
-Maintained and customized by **Tejas Ganesh**. An AI assistant for investigating MATLAB errors and Simulink models, with screenshot analysis, local PDF retrieval, and web search.
+Maintained by **Tejas Ganesh**. An AI assistant for investigating MATLAB errors and Simulink models, with screenshot analysis, local PDF retrieval, and web search.
 
 [Repository](https://github.com/tejasganesh04/matlab-troubleshooting-ai)
 
@@ -64,7 +64,3 @@ Restart Streamlit after rebuilding an index. Rebuild whenever you change the emb
 - **Dependency install failures:** use a fresh Python 3.11 or 3.12 virtual environment.
 
 Questions, images, and retrieved context may be sent to Google; search queries are sent to Tavily. Keep confidential material out of requests unless you have permission to share it. Secrets, uploaded files, PDFs, and generated indexes are excluded from Git.
-
-## Attribution
-
-Based on [shashwat23singh/matlab-troubleshooting-ai](https://github.com/shashwat23singh/matlab-troubleshooting-ai), with original Git history retained. This version adds Tejas Ganesh branding, corrected setup instructions, configuration examples, a PDF retrieval fix, and answer persistence/export. The upstream repository did not include a license at the time of import; this repository does not assert a new license over upstream code.
