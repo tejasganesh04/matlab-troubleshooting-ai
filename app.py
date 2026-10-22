@@ -13,7 +13,7 @@ def render_sidebar():
     """Render the sidebar with project info and reset button."""
     with st.sidebar:
         st.title("⚙️ MATLAB AI")
-        st.caption("Maintained by Tejas Ganesh")
+        st.caption("Project owner: Tejas Ganesh")
         st.link_button("View project on GitHub", "https://github.com/tejasganesh04/matlab-troubleshooting-ai")
         st.markdown("---")
         st.markdown("### About Project")

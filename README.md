@@ -1,6 +1,8 @@
 # MATLAB Troubleshooting AI
 
-Maintained by **Tejas Ganesh**. An AI assistant for investigating MATLAB errors and Simulink models, with screenshot analysis, local PDF retrieval, and web search.
+Project owner: **Tejas Ganesh**.
+
+An AI assistant for investigating MATLAB errors and Simulink models, with screenshot analysis, local PDF retrieval, and web search.
 
 [Repository](https://github.com/tejasganesh04/matlab-troubleshooting-ai)
 
