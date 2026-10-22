@@ -1,0 +1,12 @@
+Retrieve the most relevant MATLAB documentation for the user's query.
+
+Focus on:
+
+- MATLAB documentation
+- Simulink documentation
+- Toolbox documentation
+- Function reference
+- Error messages
+- Programming examples
+
+Return only the retrieved context.

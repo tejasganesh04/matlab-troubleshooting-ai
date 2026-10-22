@@ -1,0 +1,27 @@
+# Python files
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env
+
+# knowledge
+knowledge_base
+
+# Vector store index files
+faiss_index
+
+# User uploads / temp files
+uploads
+
+# IDEs
+.vscode/
+.idea/
+
+
+# Local machine and secret configuration
+.DS_Store
+.env.*
+!.env.example
